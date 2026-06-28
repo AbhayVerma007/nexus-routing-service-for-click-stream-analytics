@@ -1,0 +1,324 @@
+{
+  "widgets": [
+
+    {
+      "type": "text",
+      "x": 0, "y": 0, "width": 24, "height": 3,
+      "properties": {
+        "markdown": "# 🚀 URL Shortener — Production NOC Dashboard\n**Environment:** Production &nbsp;|&nbsp; **Region:** us-east-1 &nbsp;|&nbsp; **Stack:** Nginx → Node.js → MySQL/MongoDB\n\n> 🟢 **Web Tier** `i-0b377383592c91dea` &nbsp;&nbsp;&nbsp; 🗄️ **DB Tier** `i-XXXXXXXXXXXXXXXXX` &nbsp;&nbsp;&nbsp; 📡 **Agent:** CloudWatch Agent Active\n\n---"
+      }
+    },
+
+    {
+      "type": "text",
+      "x": 0, "y": 3, "width": 24, "height": 2,
+      "properties": {
+        "markdown": "### 🔔 Alarm Status\n> ℹ️ To enable live alarm status here: create CloudWatch Alarms for CPU/Memory/Disk thresholds, then replace this widget with an `alarm` type widget referencing their ARNs. &nbsp;|&nbsp; **Quick links:** [Create Alarm](https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2:create) &nbsp;|&nbsp; [View All Alarms](https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2:)"
+      }
+    },
+
+    {
+      "type": "text",
+      "x": 0, "y": 5, "width": 24, "height": 1,
+      "properties": {
+        "markdown": "## 🌐 Web & API Tier — Nginx / Node.js"
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 0, "y": 6, "width": 6, "height": 6,
+      "properties": {
+        "title": "⚡ Web CPU Utilization",
+        "metrics": [
+          [ "AWS/EC2", "CPUUtilization", "InstanceId", "i-0b377383592c91dea", { "color": "#1f77b4", "label": "CPU %" } ]
+        ],
+        "view": "gauge",
+        "region": "us-east-1",
+        "stat": "Average",
+        "period": 60,
+        "yAxis": { "left": { "min": 0, "max": 100 } },
+        "annotations": {
+          "horizontal": [
+            { "color": "#ff7f0e", "label": "Warning (70%)", "value": 70 },
+            { "color": "#d62728", "label": "Critical (90%)", "value": 90, "fill": "above" }
+          ]
+        }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 6, "y": 6, "width": 6, "height": 6,
+      "properties": {
+        "title": "🧠 Web Memory Utilization",
+        "metrics": [
+          [ { "expression": "SEARCH('Namespace=\"CWAgent\" MetricName=\"mem_used_percent\" InstanceId=\"i-0b377383592c91dea\"', 'Average', 60)", "id": "w_mem", "color": "#9467bd", "label": "Memory %" } ]
+        ],
+        "view": "gauge",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "max": 100 } },
+        "annotations": {
+          "horizontal": [
+            { "color": "#ff7f0e", "label": "Warning (75%)", "value": 75 },
+            { "color": "#d62728", "label": "Critical (90%)", "value": 90, "fill": "above" }
+          ]
+        }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 12, "y": 6, "width": 6, "height": 6,
+      "properties": {
+        "title": "💾 Web Disk Usage (Root)",
+        "metrics": [
+          [ { "expression": "SEARCH('Namespace=\"CWAgent\" MetricName=\"disk_used_percent\" InstanceId=\"i-0b377383592c91dea\" path=\"/\"', 'Average', 60)", "id": "w_disk", "color": "#2ca02c", "label": "Disk %" } ]
+        ],
+        "view": "gauge",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "max": 100 } },
+        "annotations": {
+          "horizontal": [
+            { "color": "#ff7f0e", "label": "Warning (80%)", "value": 80 },
+            { "color": "#d62728", "label": "Critical (90%)", "value": 90, "fill": "above" }
+          ]
+        }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 18, "y": 6, "width": 6, "height": 6,
+      "properties": {
+        "title": "📶 Web Network Traffic",
+        "metrics": [
+          [ "AWS/EC2", "NetworkIn",  "InstanceId", "i-0b377383592c91dea", { "color": "#1f77b4", "label": "Bytes In" } ],
+          [ ".",        "NetworkOut", ".",           ".",                   { "color": "#2ca02c", "label": "Bytes Out" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "us-east-1",
+        "stat": "Average",
+        "period": 60,
+        "legend": { "position": "bottom" }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 0, "y": 12, "width": 12, "height": 6,
+      "properties": {
+        "title": "📈 Web CPU — Trend (Time Series)",
+        "metrics": [
+          [ "AWS/EC2", "CPUUtilization", "InstanceId", "i-0b377383592c91dea", { "color": "#1f77b4", "label": "CPU %" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "us-east-1",
+        "stat": "Average",
+        "period": 60,
+        "annotations": {
+          "horizontal": [
+            { "color": "#d62728", "label": "Critical (90%)", "value": 90 }
+          ]
+        },
+        "legend": { "position": "hidden" }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 12, "y": 12, "width": 12, "height": 6,
+      "properties": {
+        "title": "🧠 Web Memory — Trend (Time Series)",
+        "metrics": [
+          [ { "expression": "SEARCH('Namespace=\"CWAgent\" MetricName=\"mem_used_percent\" InstanceId=\"i-0b377383592c91dea\"', 'Average', 60)", "id": "w_mem_ts", "color": "#9467bd", "label": "Memory %" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "us-east-1",
+        "legend": { "position": "hidden" }
+      }
+    },
+
+    {
+      "type": "text",
+      "x": 0, "y": 18, "width": 24, "height": 1,
+      "properties": {
+        "markdown": "## 🗄️ Database Tier — MySQL / MongoDB"
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 0, "y": 19, "width": 6, "height": 6,
+      "properties": {
+        "title": "⚡ DB CPU Utilization",
+        "metrics": [
+          [ "AWS/EC2", "CPUUtilization", "InstanceId", "i-09de86848b19b6370", { "color": "#d62728", "label": "CPU %" } ]
+        ],
+        "view": "gauge",
+        "region": "us-east-1",
+        "stat": "Average",
+        "period": 60,
+        "yAxis": { "left": { "min": 0, "max": 100 } },
+        "annotations": {
+          "horizontal": [
+            { "color": "#ff7f0e", "label": "Warning (70%)", "value": 70 },
+            { "color": "#d62728", "label": "Critical (90%)", "value": 90, "fill": "above" }
+          ]
+        }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 6, "y": 19, "width": 6, "height": 6,
+      "properties": {
+        "title": "🧠 DB Memory Utilization",
+        "metrics": [
+          [ { "expression": "SEARCH('Namespace=\"CWAgent\" MetricName=\"mem_used_percent\" InstanceId=\"i-09de86848b19b6370\"', 'Average', 60)", "id": "d_mem", "color": "#8c564b", "label": "Memory %" } ]
+        ],
+        "view": "gauge",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "max": 100 } },
+        "annotations": {
+          "horizontal": [
+            { "color": "#ff7f0e", "label": "Warning (75%)", "value": 75 },
+            { "color": "#d62728", "label": "Critical (90%)", "value": 90, "fill": "above" }
+          ]
+        }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 12, "y": 19, "width": 6, "height": 6,
+      "properties": {
+        "title": "💾 DB Disk Usage (Root)",
+        "metrics": [
+          [ { "expression": "SEARCH('Namespace=\"CWAgent\" MetricName=\"disk_used_percent\" InstanceId=\"i-09de86848b19b6370\" path=\"/\"', 'Average', 60)", "id": "d_disk", "color": "#e377c2", "label": "Disk %" } ]
+        ],
+        "view": "gauge",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "max": 100 } },
+        "annotations": {
+          "horizontal": [
+            { "color": "#ff7f0e", "label": "Warning (80%)", "value": 80 },
+            { "color": "#d62728", "label": "Critical (90%)", "value": 90, "fill": "above" }
+          ]
+        }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 18, "y": 19, "width": 6, "height": 6,
+      "properties": {
+        "title": "🔄 DB Disk I/O",
+        "metrics": [
+          [ "AWS/EC2", "DiskReadBytes",  "InstanceId", "i-09de86848b19b6370", { "color": "#9467bd", "label": "Read Bytes" } ],
+          [ ".",        "DiskWriteBytes", ".",           ".",                   { "color": "#8c564b", "label": "Write Bytes" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "us-east-1",
+        "stat": "Average",
+        "period": 60,
+        "legend": { "position": "bottom" }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 0, "y": 25, "width": 12, "height": 6,
+      "properties": {
+        "title": "📈 DB CPU — Trend (Time Series)",
+        "metrics": [
+          [ "AWS/EC2", "CPUUtilization", "InstanceId", "i-09de86848b19b6370", { "color": "#d62728", "label": "DB CPU %" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "us-east-1",
+        "stat": "Average",
+        "period": 60,
+        "annotations": {
+          "horizontal": [
+            { "color": "#d62728", "label": "Critical (90%)", "value": 90 }
+          ]
+        },
+        "legend": { "position": "hidden" }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 12, "y": 25, "width": 12, "height": 6,
+      "properties": {
+        "title": "🔄 DB Disk I/O — Trend (Time Series)",
+        "metrics": [
+          [ "AWS/EC2", "DiskReadBytes",  "InstanceId", "i-09de86848b19b6370", { "color": "#9467bd", "label": "Read" } ],
+          [ ".",        "DiskWriteBytes", ".",           ".",                   { "color": "#8c564b", "label": "Write" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "us-east-1",
+        "stat": "Average",
+        "period": 60,
+        "legend": { "position": "bottom" }
+      }
+    },
+
+    {
+      "type": "text",
+      "x": 0, "y": 31, "width": 24, "height": 1,
+      "properties": {
+        "markdown": "## ⚖️ Side-by-Side Comparison — Web vs DB"
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 0, "y": 32, "width": 12, "height": 6,
+      "properties": {
+        "title": "⚡ CPU: Web vs DB (Overlaid)",
+        "metrics": [
+          [ "AWS/EC2", "CPUUtilization", "InstanceId", "i-0b377383592c91dea", { "color": "#1f77b4", "label": "Web CPU %" } ],
+          [ ".",        ".",              ".",           "i-09de86848b19b6370", { "color": "#d62728", "label": "DB CPU %" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "us-east-1",
+        "stat": "Average",
+        "period": 60,
+        "legend": { "position": "bottom" }
+      }
+    },
+
+    {
+      "type": "metric",
+      "x": 12, "y": 32, "width": 12, "height": 6,
+      "properties": {
+        "title": "🧠 Memory: Web vs DB (Overlaid)",
+        "metrics": [
+          [ { "expression": "SEARCH('Namespace=\"CWAgent\" MetricName=\"mem_used_percent\" InstanceId=\"i-0b377383592c91dea\"', 'Average', 60)", "id": "w_mem_cmp", "color": "#1f77b4", "label": "Web Memory %" } ],
+          [ { "expression": "SEARCH('Namespace=\"CWAgent\" MetricName=\"mem_used_percent\" InstanceId=\"i-09de86848b19b6370\"', 'Average', 60)", "id": "d_mem_cmp", "color": "#d62728", "label": "DB Memory %" } ]
+        ],
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "us-east-1",
+        "legend": { "position": "bottom" }
+      }
+    },
+
+    {
+      "type": "text",
+      "x": 0, "y": 38, "width": 24, "height": 2,
+      "properties": {
+        "markdown": "---\n> 📋 **NOC Runbook:** CPU >90% → check app logs. Memory >90% → restart service / check leaks. Disk >85% → run `df -h`, clear logs. DB I/O spike → check slow query log. | 🕐 All metrics at **1-minute** resolution via CloudWatch Agent."
+      }
+    }
+
+  ]
+}
