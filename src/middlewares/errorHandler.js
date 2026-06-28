@@ -1,6 +1,11 @@
 // src/middlewares/errorHandler.js
 module.exports = (err, req, res, next) => {
-  console.error('[Error]', err.message);
+  // Log the full stack trace so we can pinpoint the 'crypto' error
+  console.error('[Error Details]:', {
+    message: err.message,
+    stack: err.stack,
+    code: err.code
+  });
 
   // Mongoose validation error
   if (err.name === 'ValidationError') {
