@@ -13,17 +13,17 @@ A production-ready, full-stack URL shortening service engineered with a focus on
 
 ## 📸 Platform Previews
 
-### Modern SaaS Dashboard (Dark Mode)
+### Dark Theme Modern SaaS Dashboard (Dark Mode)
 Designed with a Tailwind CSS-powered UI, featuring contextual analytics, one-click clipboard copying, and asynchronous data fetching.
 ![Dark Theme Dashboard](./images/Dark-theme-dashboard.png)
 
-### Real-Time Analytics & User Interface
+### VS Light Theme Real-Time Analytics & User Interface
 Lightweight, fast-loading frontend ensuring zero-latency user experience while securely interacting with the backend API via JWT authentication.
 ![Light Theme Dashboard](./images/Analytics-Dashboard.png)
 
 ### Enterprise NOC Telemetry (AWS CloudWatch)
 Custom CloudWatch dashboard deployed via AWS CLI (`put-dashboard`). Tracks standard (CPU, Network) and custom `CWAgent` metrics (Memory, Root Disk Space) across isolated VPC subnets.
-![CloudWatch Dashboard](./images/cw%20Dashboard.jpg)
+![CloudWatch Dashboard](./images/CWDashboard.png)
 
 ---
 
