@@ -1,4 +1,8 @@
 // src/app.js
+const crypto = require('crypto');
+global.crypto = crypto;
+
+require('dotenv').config();
 require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
